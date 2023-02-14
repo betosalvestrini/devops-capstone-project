@@ -135,9 +135,9 @@ class TestAccountService(TestCase):
             content_type="application/json"
         )
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        data  = res.get_json()
+        data = res.get_json()
         self.assertEqual(data["name"], account.name)
-    
+
     def test_account_not_found(self):
         """It should not return anything"""
         res = self.client.get(
@@ -152,7 +152,7 @@ class TestAccountService(TestCase):
         res = self.client.get(
             BASE_URL
         )
-        self.assertEqual(res.status_code , status.HTTP_200_OK)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
         clients = res.get_json()
         self.assertEqual(len(clients), 5)
 
