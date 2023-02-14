@@ -57,34 +57,37 @@ def create_accounts():
         jsonify(message), status.HTTP_201_CREATED, {"Location": location_url}
     )
 
+
 ######################################################################
 # LIST ALL ACCOUNTS
 ######################################################################
-@app.route("/accounts", methods=["GET"])
+@app.route("/accounts",  methods=["GET"])
 def list_accounts():
     """
     List all accounts
     """
     app.logger.info("Resquest to list Accounts")
     accounts = Account.all()
-    account_list = [ account.serialize() for account in accounts]
+    account_list = [account.serialize() for account in accounts]
     app.logger.info(f"Returning {len(account_list)} accounts")
     return jsonify(account_list), status.HTTP_200_OK
+
 
 ######################################################################
 # READ AN ACCOUNT
 ######################################################################
 @app.route("/accounts/<int:account_id>", methods=["GET"])
 def read_account(account_id):
-        """
-        Reads an Account
-        This endpoint will read an Account based the account_id that is requested
-        """
-        app.logger.info(f"Request to read account: {account_id}")
-        account = Account.find(account_id)
-        if not account:
-            abort(status.HTTP_404_NOT_FOUND, f"Account with id {account_id} not found")
-        return account.serialize(), status.HTTP_200_OK
+    """
+    Reads an Account
+    This endpoint will read an Account based the account_id that is requested
+    """
+    app.logger.info(f"Request to read account: {account_id}")
+    account = Account.find(account_id)
+    if not account:
+        abort(status.HTTP_404_NOT_FOUND, f"Account with id {account_id} not found")
+    return account.serialize(), status.HTTP_200_OK
+
 
 ######################################################################
 # UPDATE AN EXISTING ACCOUNT
@@ -118,7 +121,7 @@ def delete_account(account_id):
         account.delete()
     else:
         abort(status.HTTP_404_NOT_FOUND, f"Account with id {account_id} not found")
-    return "" , status.HTTP_204_NO_CONTENT
+    return "", status.HTTP_204_NO_CONTENT
 
 
 ######################################################################
